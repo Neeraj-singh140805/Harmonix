@@ -50,7 +50,7 @@ function AppWrapper() {
 
 export default function App() {
   return (
-    <Router>
+    <Router basename='/Harmonix'>
       <AppWrapper />
     </Router>
   );

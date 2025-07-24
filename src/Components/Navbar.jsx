@@ -9,9 +9,8 @@ export default function Header() {
 
   const handleLogout = async () => {
     try {
-      await signOut(auth); // Sign out from Firebase
-      localStorage.removeItem("user"); // Clear user from localStorage
-      navigate("/login"); // Redirect to login page
+      await signOut(auth); 
+      navigate("/login"); 
     } catch (error) {
       console.error("Logout failed:", error);
     }
