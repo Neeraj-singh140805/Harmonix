@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
 
@@ -10,20 +10,21 @@ function Login() {
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    setError('');
+  event.preventDefault();
+  setError('');
 
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-      localStorage.setItem('user', user.email);
-      alert(`Login successful for: ${user.email}`);
-      navigate('/home');
-    } catch (err) {
-      setError('Invalid email or password. Please try again.');
-      console.log(err);
-    }
-  };
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    localStorage.setItem('user', JSON.stringify({ email: user.email, name: user.displayName }));
+    alert(`Login successful for: ${user.displayName}`);
+    navigate('/home');
+  } catch (err) {
+    setError('Invalid email or password. Please try again.');
+    console.log(err);
+  }
+};
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800">
@@ -73,9 +74,9 @@ function Login() {
 
         <p className="text-sm text-center text-gray-600 mt-4">
           Don't have an account?{" "}
-          <a href="/signup" className="text-blue-600 hover:underline font-medium">
+          <Link to="/signup" className="text-blue-600 hover:underline font-medium">
             Sign Up
-          </a>
+          </Link>
         </p>
       </div>
     </div>

@@ -1,20 +1,36 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import "../index.css";
 import { signOut } from "firebase/auth";
-import { auth } from "../firebase"; //
+import { auth } from "../firebase";
 
 export default function Header() {
-  const user = localStorage.getItem("user");
   const navigate = useNavigate();
+
+  const rawUser = localStorage.getItem("user");
+  let userName = "";
+  let userExists = false;
+
+  try {
+    const parsed = JSON.parse(rawUser);
+    userName = parsed?.name || parsed?.email || "";
+    userExists = true;
+  } catch {
+    if (rawUser) {
+      userName = rawUser;
+      userExists = true;
+    }
+  }
 
   const handleLogout = async () => {
     try {
-      await signOut(auth); 
-      navigate("/login"); 
+      await signOut(auth);
+      localStorage.removeItem("user");
+      navigate("/login");
     } catch (error) {
       console.error("Logout failed:", error);
     }
   };
+
   return (
     <header className="shadow sticky z-50 top-0">
       <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5">
@@ -27,10 +43,13 @@ export default function Header() {
             />
           </Link>
           <div className="flex items-center lg:order-2">
-            {user ? (
+            {userExists ? (
               <div className="flex gap-6 items-center justify-center">
-                <h4 className="font-semibold">Welcome !</h4>
-                <button className="bg-red-600 px-4 py-1 cursor-pointer font-bold rounded-md text-white hover:bg-red-500" onClick={handleLogout}>
+                <h4 className="font-semibold text-gray-800">Welcome {userName || "!"}</h4>
+                <button
+                  className="bg-red-600 px-4 py-1 cursor-pointer font-bold rounded-md text-white hover:bg-red-500"
+                  onClick={handleLogout}
+                >
                   Logout
                 </button>
               </div>

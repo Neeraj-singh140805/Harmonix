@@ -1,17 +1,29 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { auth } from '../firebase';
 
 function SignUp() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
 
-    localStorage.setItem('user', email);
-    alert(`SignUp successful for: ${email}`);
-    navigate('/home');
+      await updateProfile(user, { displayName: name });
+
+      localStorage.setItem('user', JSON.stringify({ email: user.email, name }));
+      alert(`SignUp successful for: ${name}`);
+      navigate('/home');
+    } catch (error) {
+      console.error(error);
+      alert('Signup failed: ' + error.message);
+    }
   };
 
   return (
@@ -21,11 +33,26 @@ function SignUp() {
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter your name"
+            />
+          </div>
+
+          <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
               Email
             </label>
             <input
-              type="text"
+              type="email"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -60,9 +87,9 @@ function SignUp() {
 
         <p className="text-sm text-center text-gray-600 mt-4">
           Already have an account?{" "}
-          <a href="/login" className="text-blue-600 hover:underline font-medium">
+          <Link to="/login" className="text-blue-600 hover:underline font-medium">
             Login
-          </a>
+          </Link>
         </p>
       </div>
     </div>
@@ -70,4 +97,3 @@ function SignUp() {
 }
 
 export default SignUp;
-
