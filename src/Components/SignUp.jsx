@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../firebase';
+import { Eye, EyeOff } from 'lucide-react'; // 👀 for eye icons
 
 function SignUp() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // 👀 toggle
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -27,13 +29,25 @@ function SignUp() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800">
-      <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
-        <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-6">Create an Account</h2>
+    <div
+      className="relative flex items-center justify-center min-h-screen bg-cover bg-center"
+      style={{
+        backgroundImage:
+          "url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1740&q=80')",
+      }}
+    >
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+
+      {/* Signup Card */}
+      <div className="relative z-10 bg-white/10 backdrop-blur-lg p-8 rounded-2xl shadow-2xl w-full max-w-md">
+        <h2 className="text-4xl font-extrabold text-center text-white mb-6 drop-shadow-md">
+          Create an Account 🎶
+        </h2>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="name" className="block text-sm font-medium text-gray-200 mb-1">
               Name
             </label>
             <input
@@ -42,13 +56,13 @@ function SignUp() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 rounded-lg bg-white/20 border border-white/30 text-white placeholder-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-400"
               placeholder="Enter your name"
             />
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-200 mb-1">
               Email
             </label>
             <input
@@ -57,37 +71,45 @@ function SignUp() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 rounded-lg bg-white/20 border border-white/30 text-white placeholder-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-400"
               placeholder="Enter your email"
             />
           </div>
 
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+          {/* Password with Eye Toggle */}
+          <div className="relative">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-200 mb-1">
               Password
             </label>
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 pr-10 rounded-lg bg-white/20 border border-white/30 text-white placeholder-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-400"
               placeholder="Enter your password"
             />
+            <button
+              type="button"
+              className="absolute right-3 top-9 text-gray-300 hover:text-white"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
           </div>
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-200 font-semibold"
+            className="w-full py-3 rounded-lg bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold shadow-lg hover:scale-105 transform transition"
           >
             Sign Up
           </button>
         </form>
 
-        <p className="text-sm text-center text-gray-600 mt-4">
-          Already have an account?{" "}
-          <Link to="/login" className="text-blue-600 hover:underline font-medium">
+        <p className="text-sm text-center text-gray-300 mt-6">
+          Already have an account?{' '}
+          <Link to="/login" className="text-pink-400 hover:underline font-medium">
             Login
           </Link>
         </p>
@@ -97,3 +119,6 @@ function SignUp() {
 }
 
 export default SignUp;
+
+
+

@@ -1,61 +1,69 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
+import { Bell, Shield, Volume2, Type, Moon, Sun } from "lucide-react";
+import { SettingContext } from "../context/SettingContext";
 
 export default function Settings() {
-  const [darkMode, setDarkMode] = useState(false);
-  const [notifications, setNotifications] = useState(true);
-  const [volume, setVolume] = useState(50);
-  const [isPrivate, setIsPrivate] = useState(false);
-  useEffect(() => {
-    const storedDark = localStorage.getItem("harmonix_darkMode");
-    const storedNotif = localStorage.getItem("harmonix_notifications");
-    const storedVolume = localStorage.getItem("harmonix_volume");
-    const storedPrivacy = localStorage.getItem("harmonix_privacy");
-
-    if (storedDark !== null) setDarkMode(storedDark === "true");
-    if (storedNotif !== null) setNotifications(storedNotif === "true");
-    if (storedVolume !== null) setVolume(Number(storedVolume));
-    if (storedPrivacy !== null) setIsPrivate(storedPrivacy === "true");
-  }, []);
+  const {
+    notifications,
+    setNotifications,
+    volume,
+    setVolume,
+    isPrivate,
+    setIsPrivate,
+    fontSize,
+    setFontSize,
+    darkMode,
+    setDarkMode,
+  } = useContext(SettingContext);
 
   const saveSettings = () => {
-    localStorage.setItem("harmonix_darkMode", darkMode);
     localStorage.setItem("harmonix_notifications", notifications);
     localStorage.setItem("harmonix_volume", volume);
     localStorage.setItem("harmonix_privacy", isPrivate);
+    localStorage.setItem("harmonix_fontSize", fontSize);
+    localStorage.setItem("harmonix_darkMode", darkMode);
     alert("✅ Settings saved successfully!");
   };
 
   const resetSettings = () => {
-    setDarkMode(false);
     setNotifications(true);
     setVolume(50);
     setIsPrivate(false);
-    localStorage.removeItem("harmonix_darkMode");
+    setFontSize(16);
+    setDarkMode(false);
+
     localStorage.removeItem("harmonix_notifications");
     localStorage.removeItem("harmonix_volume");
     localStorage.removeItem("harmonix_privacy");
+    localStorage.removeItem("harmonix_fontSize");
+    localStorage.removeItem("harmonix_darkMode");
+
     alert("⚠️ Settings reset to default.");
   };
 
   return (
-    <div className={`min-h-screen px-6 py-10 transition-all duration-500 ${darkMode ? "bg-black text-white" : "bg-gray-100 text-gray-900"}`}>
-      <div className="max-w-3xl mx-auto bg-white dark:bg-[#1e1e1e] rounded-2xl shadow-2xl p-10 space-y-8">
-
-        <h1 className="text-4xl font-bold text-center bg-gradient-to-r from-pink-500 to-red-400 bg-clip-text text-transparent">
+    <div
+      className="min-h-screen flex items-center justify-center px-6 py-10 transition-colors duration-500"
+      style={{
+        backgroundImage: !darkMode
+          ? "url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4')"
+          : "none",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <div
+        className={`max-w-3xl w-full rounded-3xl shadow-2xl p-10 space-y-10 border border-white/20 transition-colors duration-500 ${
+          darkMode ? "bg-gray-800 text-white" : "bg-white/30 text-gray-900"
+        }`}
+      >
+        <h1 className="text-5xl font-extrabold text-center bg-gradient-to-r from-pink-500 to-red-400 bg-clip-text text-transparent tracking-wide drop-shadow-lg">
           ⚙️ Settings
         </h1>
 
-        {/* Dark Mode */}
-        <SettingToggle
-          title="Dark Mode"
-          description={darkMode ? "Dark theme is enabled" : "Light theme is enabled"}
-          enabled={darkMode}
-          onToggle={() => setDarkMode(!darkMode)}
-          toggleColor="bg-pink-500"
-        />
-
         {/* Notifications */}
         <SettingToggle
+          icon={<Bell className="w-6 h-6 text-green-500" />}
           title="Push Notifications"
           description={notifications ? "Enabled" : "Disabled"}
           enabled={notifications}
@@ -65,6 +73,7 @@ export default function Settings() {
 
         {/* Privacy */}
         <SettingToggle
+          icon={<Shield className="w-6 h-6 text-purple-500" />}
           title="Account Privacy"
           description={isPrivate ? "Private profile" : "Public profile"}
           enabled={isPrivate}
@@ -72,10 +81,21 @@ export default function Settings() {
           toggleColor="bg-purple-500"
         />
 
-        {/* Volume Slider */}
-        <div>
-          <label className="block text-lg font-medium mb-2">
-            Default Volume: <span className="text-pink-500">{volume}%</span>
+        {/* Dark Mode */}
+        <SettingToggle
+          icon={darkMode ? <Moon className="w-6 h-6 text-gray-800" /> : <Sun className="w-6 h-6 text-yellow-500" />}
+          title="Dark Mode"
+          description={darkMode ? "Enabled" : "Disabled"}
+          enabled={darkMode}
+          onToggle={() => setDarkMode(!darkMode)}
+          toggleColor="bg-gray-800"
+        />
+
+        {/* Volume */}
+        <div className="space-y-2">
+          <label className="flex items-center gap-2 text-lg font-semibold">
+            <Volume2 className="w-6 h-6 text-pink-500" />
+            Default Volume: <span className="text-pink-600">{volume}%</span>
           </label>
           <input
             type="range"
@@ -83,21 +103,37 @@ export default function Settings() {
             max="100"
             value={volume}
             onChange={(e) => setVolume(Number(e.target.value))}
-            className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-pink-500"
+            className="w-full h-2 rounded-lg appearance-none cursor-pointer accent-pink-500 bg-gray-300"
+          />
+        </div>
+
+        {/* Font Size */}
+        <div className="space-y-2">
+          <label className="flex items-center gap-2 text-lg font-semibold">
+            <Type className="w-6 h-6 text-blue-500" />
+            Font Size: <span className="text-blue-600">{fontSize}px</span>
+          </label>
+          <input
+            type="range"
+            min="12"
+            max="24"
+            value={fontSize}
+            onChange={(e) => setFontSize(Number(e.target.value))}
+            className="w-full h-2 rounded-lg appearance-none cursor-pointer accent-blue-500 bg-gray-300"
           />
         </div>
 
         {/* Buttons */}
-        <div className="flex justify-center gap-4 pt-6">
+        <div className="flex justify-center gap-6 pt-6">
           <button
             onClick={saveSettings}
-            className="px-6 py-2 bg-pink-600 hover:bg-pink-700 text-white rounded-full font-semibold transition"
+            className="px-8 py-3 bg-gradient-to-r from-pink-600 to-red-500 text-white rounded-full font-bold shadow-lg transform hover:scale-105 transition"
           >
             💾 Save
           </button>
           <button
             onClick={resetSettings}
-            className="px-6 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-full font-semibold transition"
+            className="px-8 py-3 bg-gradient-to-r from-gray-200 to-gray-400 text-gray-900 rounded-full font-bold shadow-lg transform hover:scale-105 transition"
           >
             ♻️ Reset
           </button>
@@ -106,19 +142,32 @@ export default function Settings() {
     </div>
   );
 }
-function SettingToggle({ title, description, enabled, onToggle, toggleColor }) {
+
+function SettingToggle({ icon, title, description, enabled, onToggle, toggleColor }) {
   return (
-    <div className="flex items-center justify-between">
-      <div>
-        <p className="text-lg font-medium">{title}</p>
-        <p className="text-sm text-gray-400">{description}</p>
+    <div className="flex items-center justify-between p-4 rounded-2xl transition-colors duration-300 shadow-md hover:shadow-xl">
+      <div className="flex items-center gap-3">
+        {icon}
+        <div>
+          <p className="text-lg font-semibold">{title}</p>
+          <p className="text-sm">{description}</p>
+        </div>
       </div>
       <button
         onClick={onToggle}
-        className={`relative inline-flex items-center h-8 w-16 rounded-full px-1 transition duration-300 ${enabled ? toggleColor : "bg-gray-400"}`}
+        className={`relative inline-flex items-center h-8 w-16 rounded-full px-1 transition duration-300 ${
+          enabled ? toggleColor : "bg-gray-400"
+        }`}
       >
-        <span className={`inline-block h-6 w-6 transform bg-white rounded-full shadow transition-transform duration-300 ${enabled ? "translate-x-8" : "translate-x-0"}`} />
+        <span
+          className={`inline-block h-6 w-6 transform bg-white rounded-full shadow transition-transform duration-300 ${
+            enabled ? "translate-x-8" : "translate-x-0"
+          }`}
+        />
       </button>
     </div>
   );
 }
+
+
+

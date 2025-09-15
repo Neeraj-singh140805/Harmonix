@@ -1,5 +1,8 @@
 
+
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { useContext } from 'react';
+
 import Navbar from './Components/Navbar';
 import Home from './Components/Home';
 import Library from './Components/Library';
@@ -12,6 +15,9 @@ import Favorites from './Components/Favorites';
 import LikedSongs from './Components/LikedSongs';
 import Trending from './Components/Trending';
 import Playlists from './Components/Playlists';
+import Welcome from './Components/Welcome';
+
+import { SettingProvider, SettingContext } from './context/SettingContext'; 
 
 function ProtectedRoute({ children }) {
   const isAuthenticated = localStorage.getItem('user');
@@ -20,19 +26,26 @@ function ProtectedRoute({ children }) {
 
 function AppWrapper() {
   const location = useLocation();
-  const hideNavbar = location.pathname === '/login' || location.pathname === '/signup';
+  const hideNavbar =
+    location.pathname === '/login' ||
+    location.pathname === '/signup' ||
+    location.pathname === '/';
+
+  const { fontSize, darkMode } = useContext(SettingContext);
 
   return (
-    <>
+    <div
+      className={`min-h-screen transition-colors duration-500 ${
+        darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
+      }`}
+      style={{ fontSize: `${fontSize}px` }}
+    >
       {!hideNavbar && <Navbar />}
       <div className="page-content">
         <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/" element={<Welcome />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-
-          {/* Protected Routes */}
           <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path="/library" element={<ProtectedRoute><Library /></ProtectedRoute>} />
           <Route path="/AboutUs" element={<ProtectedRoute><Contact /></ProtectedRoute>} />
@@ -44,15 +57,19 @@ function AppWrapper() {
           <Route path="/playlists" element={<ProtectedRoute><Playlists /></ProtectedRoute>} />
         </Routes>
       </div>
-    </>
+    </div>
   );
 }
 
 export default function App() {
   return (
-    <Router>
-      <AppWrapper />
-    </Router>
+    <SettingProvider>
+      <Router>
+        <AppWrapper />
+      </Router>
+    </SettingProvider>
   );
 }
+
+
 

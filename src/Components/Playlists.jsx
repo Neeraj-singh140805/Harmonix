@@ -4,15 +4,12 @@ export default function Playlist() {
   const [playlists, setPlaylists] = useState({});
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
 
-  // Load playlists on mount
   useEffect(() => {
     const saved = localStorage.getItem("harmonix_playlists");
     if (saved) {
       setPlaylists(JSON.parse(saved));
     }
   }, []);
-
-  // Remove song from playlist
   const removeSong = (playlistName, trackId) => {
     const updatedPlaylist = playlists[playlistName].filter(song => song.trackId !== trackId);
     const updatedPlaylists = {
@@ -23,7 +20,6 @@ export default function Playlist() {
     localStorage.setItem("harmonix_playlists", JSON.stringify(updatedPlaylists));
   };
 
-  // Delete entire playlist
   const deletePlaylist = (name) => {
     const updated = { ...playlists };
     delete updated[name];

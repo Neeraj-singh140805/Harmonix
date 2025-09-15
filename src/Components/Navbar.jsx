@@ -35,7 +35,7 @@ export default function Header() {
     <header className="shadow sticky z-50 top-0">
       <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-          <Link to="/" className="flex items-center">
+          <Link to="/home" className="flex items-center">
             <img
               src="https://i.pinimg.com/736x/2b/81/a8/2b81a830e7be62b2437a493d2867c3d8.jpg"
               alt="Logo"
@@ -130,3 +130,7 @@ export default function Header() {
     </header>
   );
 }
+
+
+
+
