@@ -7,7 +7,7 @@ export default function Home() {
 
   return (
     <div
-      className="min-h-screen py-16 px-4 flex flex-col items-center text-white font-sans relative transition-colors duration-500"
+      className="min-h-screen py-10 px-4 flex flex-col items-center text-white font-sans relative transition-colors duration-500"
       style={{
         fontSize: `${fontSize}px`,
         backgroundColor: darkMode ? "#111827" : undefined,
@@ -21,26 +21,27 @@ export default function Home() {
       {/* Dark Overlay */}
       {darkMode && <div className="absolute inset-0 bg-black"></div>}
       <div className="relative z-10 w-full flex flex-col items-center">
-        <h1 className="text-5xl font-bold mb-12 bg-gradient-to-r from-pink-500 to-red-400 bg-clip-text text-transparent">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 sm:mb-12 bg-gradient-to-r from-pink-500 to-red-400 bg-clip-text text-transparent text-center">
           Welcome to Harmonix
         </h1>
 
-        <div className="w-full max-w-5xl flex flex-col gap-8">
+        <div className="w-full max-w-5xl flex flex-col gap-6 sm:gap-8">
+
           {/* Feed */}
           <Link to="/feed" className="w-full no-underline">
             <div
-              className={`flex items-center backdrop-blur-md rounded-2xl overflow-hidden shadow-md hover:shadow-pink-500/30 hover:-translate-y-1 transition duration-300 p-4 ${
+              className={`flex flex-col sm:flex-row items-center backdrop-blur-md rounded-2xl overflow-hidden shadow-md hover:shadow-pink-500/30 hover:-translate-y-1 transition duration-300 p-4 ${
                 darkMode ? "bg-gray-800" : "bg-[#1e1e1e]/80"
               }`}
             >
               <img
                 src="https://d1rs3px2gf3dlr.cloudfront.net/media/blog/featured/RockBand4-KeyArt-1080p.png"
                 alt="Feed"
-                className="w-44 h-44 object-cover rounded-xl mr-8"
+                className="w-full sm:w-36 md:w-44 h-48 sm:h-36 md:h-44 object-cover rounded-xl sm:mr-8 mb-4 sm:mb-0"
               />
-              <div className="flex flex-col justify-center">
-                <h2 className="text-2xl text-pink-400 mb-2">Feed</h2>
-                <p className={darkMode ? "text-gray-300" : "text-gray-300"}>
+              <div className="flex flex-col justify-center text-center sm:text-left">
+                <h2 className="text-xl sm:text-2xl text-pink-400 mb-2">Feed</h2>
+                <p className="text-gray-300 text-sm sm:text-base">
                   Discover new tracks and playlists
                 </p>
               </div>
@@ -50,18 +51,18 @@ export default function Home() {
           {/* Trending */}
           <Link to="/trending" className="w-full no-underline">
             <div
-              className={`flex items-center backdrop-blur-md rounded-2xl overflow-hidden shadow-md hover:shadow-pink-500/30 hover:-translate-y-1 transition duration-300 p-4 ${
+              className={`flex flex-col sm:flex-row items-center backdrop-blur-md rounded-2xl overflow-hidden shadow-md hover:shadow-pink-500/30 hover:-translate-y-1 transition duration-300 p-4 ${
                 darkMode ? "bg-gray-800" : "bg-[#1e1e1e]/80"
               }`}
             >
               <img
                 src="https://images.fastcompany.com/image/upload/f_webp,q_auto,c_fit/fc/3041984-poster-p-1-this-concert-app-feeds-starving-musicians-with-a-map-to-track-their-fans.jpg"
                 alt="Trending"
-                className="w-44 h-44 object-cover rounded-xl mr-8"
+                className="w-full sm:w-36 md:w-44 h-48 sm:h-36 md:h-44 object-cover rounded-xl sm:mr-8 mb-4 sm:mb-0"
               />
-              <div className="flex flex-col justify-center">
-                <h2 className="text-2xl text-pink-400 mb-2">Trending</h2>
-                <p className={darkMode ? "text-gray-300" : "text-gray-300"}>
+              <div className="flex flex-col justify-center text-center sm:text-left">
+                <h2 className="text-xl sm:text-2xl text-pink-400 mb-2">Trending</h2>
+                <p className="text-gray-300 text-sm sm:text-base">
                   Check out the latest trending music
                 </p>
               </div>
@@ -71,18 +72,18 @@ export default function Home() {
           {/* Favorites */}
           <Link to="/favorites" className="w-full no-underline">
             <div
-              className={`flex items-center backdrop-blur-md rounded-2xl overflow-hidden shadow-md hover:shadow-pink-500/30 hover:-translate-y-1 transition duration-300 p-4 ${
+              className={`flex flex-col sm:flex-row items-center backdrop-blur-md rounded-2xl overflow-hidden shadow-md hover:shadow-pink-500/30 hover:-translate-y-1 transition duration-300 p-4 ${
                 darkMode ? "bg-gray-800" : "bg-[#1e1e1e]/80"
               }`}
             >
               <img
                 src="https://i0.wp.com/www.thedomesticmusician.com/wp-content/uploads/2016/10/Musicuniverallanguage-.jpg?resize=750%2C410&ssl=1"
                 alt="Favorites"
-                className="w-44 h-44 object-cover rounded-xl mr-8"
+                className="w-full sm:w-36 md:w-44 h-48 sm:h-36 md:h-44 object-cover rounded-xl sm:mr-8 mb-4 sm:mb-0"
               />
-              <div className="flex flex-col justify-center">
-                <h2 className="text-2xl text-pink-400 mb-2">Favorites</h2>
-                <p className={darkMode ? "text-gray-300" : "text-gray-300"}>
+              <div className="flex flex-col justify-center text-center sm:text-left">
+                <h2 className="text-xl sm:text-2xl text-pink-400 mb-2">Favorites</h2>
+                <p className="text-gray-300 text-sm sm:text-base">
                   Your favorite tracks and playlists
                 </p>
               </div>
@@ -92,18 +93,18 @@ export default function Home() {
           {/* Liked Songs */}
           <Link to="/liked-songs" className="w-full no-underline">
             <div
-              className={`flex items-center backdrop-blur-md rounded-2xl overflow-hidden shadow-md hover:shadow-pink-500/30 hover:-translate-y-1 transition duration-300 p-4 ${
+              className={`flex flex-col sm:flex-row items-center backdrop-blur-md rounded-2xl overflow-hidden shadow-md hover:shadow-pink-500/30 hover:-translate-y-1 transition duration-300 p-4 ${
                 darkMode ? "bg-gray-800" : "bg-[#1e1e1e]/80"
               }`}
             >
               <img
                 src="https://i.imgur.com/j6yj876.jpg"
                 alt="Liked Songs"
-                className="w-44 h-44 object-cover rounded-xl mr-8"
+                className="w-full sm:w-36 md:w-44 h-48 sm:h-36 md:h-44 object-cover rounded-xl sm:mr-8 mb-4 sm:mb-0"
               />
-              <div className="flex flex-col justify-center">
-                <h2 className="text-2xl text-pink-400 mb-2">Liked Songs</h2>
-                <p className={darkMode ? "text-gray-300" : "text-gray-300"}>
+              <div className="flex flex-col justify-center text-center sm:text-left">
+                <h2 className="text-xl sm:text-2xl text-pink-400 mb-2">Liked Songs</h2>
+                <p className="text-gray-300 text-sm sm:text-base">
                   The Songs you Liked!
                 </p>
               </div>
@@ -113,23 +114,24 @@ export default function Home() {
           {/* Playlists */}
           <Link to="/playlists" className="w-full no-underline">
             <div
-              className={`flex items-center backdrop-blur-md rounded-2xl overflow-hidden shadow-md hover:shadow-pink-500/30 hover:-translate-y-1 transition duration-300 p-4 ${
+              className={`flex flex-col sm:flex-row items-center backdrop-blur-md rounded-2xl overflow-hidden shadow-md hover:shadow-pink-500/30 hover:-translate-y-1 transition duration-300 p-4 ${
                 darkMode ? "bg-gray-800" : "bg-[#1e1e1e]/80"
               }`}
             >
               <img
                 src="https://static.toiimg.com/thumb/msid-101701589,width-1280,height-720,resizemode-4/101701589.jpg"
                 alt="Playlists"
-                className="w-44 h-44 object-cover rounded-xl mr-8"
+                className="w-full sm:w-36 md:w-44 h-48 sm:h-36 md:h-44 object-cover rounded-xl sm:mr-8 mb-4 sm:mb-0"
               />
-              <div className="flex flex-col justify-center">
-                <h2 className="text-2xl text-pink-400 mb-2">Playlists</h2>
-                <p className={darkMode ? "text-gray-300" : "text-gray-300"}>
+              <div className="flex flex-col justify-center text-center sm:text-left">
+                <h2 className="text-xl sm:text-2xl text-pink-400 mb-2">Playlists</h2>
+                <p className="text-gray-300 text-sm sm:text-base">
                   Your personalized playlists and curated mixes.
                 </p>
               </div>
             </div>
           </Link>
+
         </div>
       </div>
     </div>
