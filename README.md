@@ -78,8 +78,6 @@ VITE_FIREBASE_APP_ID=your_app_id
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) in your browser.
-
 ---
 
 ## 📁 Project Structure
@@ -153,7 +151,3 @@ Pull requests are welcome! For major changes, please open an issue first.
 - GitHub: [@Neeraj-singh140805](https://github.com/Neeraj-singh140805)
 
 ---
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
