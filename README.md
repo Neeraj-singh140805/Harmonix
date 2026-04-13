@@ -48,7 +48,6 @@ A full-featured music web app built with **React**, **Firebase**, and the **iTun
 ### Prerequisites
 - Node.js v18+
 - npm or yarn
-- A Firebase project ([create one here](https://console.firebase.google.com))
 
 ### Installation
 
