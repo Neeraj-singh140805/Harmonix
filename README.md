@@ -1,29 +1,50 @@
-# 🎵 Harmonix
+# 🎧 Harmonix — Your Personal Music Universe
 
-A full-featured music web app built with **React**, **Firebase**, and the **iTunes Search API**. Users can search for songs, build playlists, like tracks, and manage their music library — all with dark mode support and a responsive UI.
+<p align="center">
+  <b>A full-featured music streaming web app built with React, Firebase & iTunes API</b>
+</p>
 
-🔗 **Live Demo**: [harmonix-psi.vercel.app](https://harmonix-psi.vercel.app)
+<p align="center">
+  <a href="https://harmonix-psi.vercel.app">
+    <img src="https://img.shields.io/badge/Live-Demo-green?style=for-the-badge&logo=vercel">
+  </a>
+  <img src="https://img.shields.io/badge/React-18-blue?style=for-the-badge&logo=react">
+  <img src="https://img.shields.io/badge/Firebase-Auth-orange?style=for-the-badge&logo=firebase">
+  <img src="https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=for-the-badge&logo=tailwind-css">
+  <img src="https://img.shields.io/badge/Status-Active-success?style=for-the-badge">
+</p>
 
 ---
 
-## 📸 Screenshots
+## 🚀 Live Demo  
+🔗 **Try it here:** https://harmonix-psi.vercel.app  
 
-<img src="src/assets/images/harmonix.png"/>
-> *(Add screenshots here — drag and drop images into this file on GitHub)*
+---
+
+## 📸 Preview
+
+<p align="center">
+  <img src="src/assets/images/harmonix.png" width="80%" />
+</p>
 
 ---
 
 ## ✨ Features
 
-- 🔐 **Authentication** — Sign up / Log in with Firebase Auth
-- 🔍 **Search Songs** — Real-time search powered by the iTunes Search API (15M+ tracks)
-- ▶️ **30-second Previews** — Instantly preview any song in the browser
-- ❤️ **Like & Favourite** — Save songs to your liked and favourite collections
-- 📂 **Custom Playlists** — Create and manage your own playlists
-- 📈 **Trending & Feed** — Explore trending music and discover new artists
-- 🌙 **Dark Mode** — Full dark/light theme toggle
-- 🔤 **Font Size Control** — Accessibility-friendly font size settings
-- 📱 **Responsive Design** — Works on mobile, tablet, and desktop
+🎵 **Music Experience**
+- 🔍 Real-time search (iTunes API — 15M+ tracks)
+- ▶️ Instant 30-sec previews  
+- 📈 Trending & discovery feed  
+
+👤 **User Features**
+- 🔐 Firebase Authentication  
+- ❤️ Like & Favourite songs  
+- 📂 Create custom playlists  
+
+🎨 **UI/UX**
+- 🌙 Dark / Light mode  
+- 🔤 Adjustable font size  
+- 📱 Fully responsive design  
 
 ---
 
